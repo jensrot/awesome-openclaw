@@ -1,7 +1,12 @@
-name: Validate PR
+name: Validate README
 
 on:
   pull_request:
+    branches: [main]
+    paths:
+      - 'README.md'
+      - 'package.json'
+  push:
     branches: [main]
     paths:
       - 'README.md'
@@ -24,13 +29,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run custom validation
-        run: |
-          chmod +x scripts/validate-readme.sh
-          bash scripts/validate-readme.sh
-
-      - name: Run remark lint
+      - name: Run local markdown lint
         run: npm run lint:local
 
-      - name: Run awesome-lint
+      - name: Run custom validation
+        run: bash scripts/validate-readme.sh
+
+      - name: Run awesome-lint (remote)
+        if: github.event_name == 'push'
         run: npm run lint:remote

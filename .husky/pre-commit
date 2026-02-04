@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Run validation before commit
+echo "Running pre-commit validation..."
+
+# Check if README.md is staged
+if git diff --cached --name-only | grep -q "README.md"; then
+    echo "README.md changed - running validation..."
+
+    # Run fast validation
+    bash scripts/validate-readme.sh --quiet
+
+    if [ $? -ne 0 ]; then
+        echo ""
+        echo "❌ Validation failed! Please fix the errors above."
+        echo "   Run 'bash scripts/validate-readme.sh' to see details."
+        echo "   Run 'bash scripts/validate-readme.sh --fix' to auto-fix alphabetical order."
+        exit 1
+    fi
+
+    echo "✅ Validation passed!"
+fi

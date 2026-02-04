@@ -4,9 +4,11 @@
   "version": "1.0.0",
   "description": "A curated list of OpenClaw tools, skills, and resources",
   "scripts": {
+    "prepare": "husky",
     "lint:remote": "awesome-lint https://github.com/jensrot/awesome-openclaw",
     "lint:local": "remark README.md --use remark-lint",
-    "lint:urls": "remark README.md --use remark-lint-no-dead-urls"
+    "lint:urls": "remark README.md --rc-path .remarkrc.json",
+    "validate": "bash scripts/validate-readme.sh"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "awesome-lint": "^2.2.3",
+    "husky": "^9.0.0",
     "remark-cli": "^12.0.1",
     "remark-lint": "^10.0.1",
     "remark-lint-no-dead-urls": "^2.0.1"

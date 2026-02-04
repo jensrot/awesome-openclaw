@@ -1,0 +1,17 @@
+{
+  "plugins": [
+    "remark-lint",
+    [
+      "remark-lint-no-dead-urls",
+      {
+        "skipUrlPatterns": [
+          "x.com",
+          "twitter.com",
+          "discord.com",
+          "discord.gg",
+          "en.wikipedia.org"
+        ]
+      }
+    ]
+  ]
+}
