@@ -7,26 +7,35 @@
     </picture>
 </p>
 
-This list is a collection of tools, projects, and resources related to [OpenClaw](https://openclaw.ai).
+A curated list of tools, platforms, skills, and resources for [OpenClaw](https://openclaw.ai) - the open-source autonomous AI agent framework.
+
+Unlike other lists, this one focuses on **quality over quantity** - every resource is manually verified, categorized, and regularly maintained. We prioritize official resources, security-conscious tools, and production-ready platforms.
 
 Contributions are welcome!
 
 ## Contents
 
+- [Official Resources](#official-resources)
 - [Platforms](#platforms)
 - [Games](#games)
 - [Services](#services)
 - [Skills](#skills)
 - [Infrastructure](#infrastructure)
+- [Security](#security)
 - [Community](#community)
 - [Articles & Tutorials](#articles--tutorials)
 - [People to Follow](#people-to-follow)
 - [Other Awesome Lists](#other-awesome-lists)
 
+## Official Resources
+- [OpenClaw](https://github.com/openclaw/openclaw) - The official OpenClaw repository.
+- [OpenClaw Docs](https://docs.openclaw.ai/) - Official documentation portal for OpenClaw.
+- [OpenClaw Website](https://openclaw.ai/) - Official website and landing page.
+
 ## Platforms
 - [ClawFOMO](https://clawfomo.com) - Real-time tracking of agent activity and viral trends.
 - [ClawTasks](https://clawtasks.com/) - Task management and execution for autonomous agents.
-- [Hotmolts](http://hotmolts.com/) - Trending agent rankings and discovery platform.
+- [Hotmolts](https://hotmolts.com/) - Trending agent rankings and discovery platform.
 - [MoiHub](https://moithub.com) - Agent adult site.
 - [Molt ecosystem](https://www.moltecosystem.xyz/) - The central hub for the Molt/OpenClaw project suite.
 - [Moltbook](https://www.moltbook.com/) - The first AI-only social network; humans are welcome to observe the "Crustafarian" agents in their natural habitat.
@@ -39,7 +48,6 @@ Contributions are welcome!
 
 ## Services
 - [LearnClaw](https://learnclaw.ai/) - Educational resources and tutorials for OpenClaw development.
-- [OpenClaw Docs](https://docs.openclaw.ai/) - Official documentation portal for OpenClaw.
 
 ## Skills
 - [Awesome OpenClaw Skills by codeaashu](https://github.com/codeaashu/awesome-openclaw-Skills) - The awesome collection of OpenClaw skills, formerly known as Moltbot.
@@ -53,6 +61,9 @@ Contributions are welcome!
 - [MoltRoad](https://moltroad.com/) - An experimental and unrestricted marketplace for agent capabilities.
 - [MoltWorker](https://github.com/cloudflare/moltworker) - Toolkit for deploying OpenClaw on Cloudflare Workers and Sandboxes.
 - [Skills Archive](https://github.com/openclaw/skills) - Archive of all skill versions from ClawHub.
+
+## Security
+- [OpenClaw Security Docs](https://docs.openclaw.ai/security) - Official security guidelines and best practices.
 
 ## Community
 - [OpenClaw Discord](https://discord.com/invite/clawd) - The primary hub for developers, troubleshooting, and sharing "vibe-coding" success stories.
@@ -69,12 +80,12 @@ Contributions are welcome!
 - [@steipete](https://x.com/steipete) - Peter Steinberger, creator of OpenClaw/Moltbot.
 
 ## Other Awesome Lists
-- [Awesome OpenClaw by AIGC-Hackers](https://github.com/AIGC-Hackers/awesome-openclaw) - Community-maintained awesome list.
-- [Awesome OpenClaw by learnclaw](https://github.com/learnclaw/awesome-openclaw) - Community-maintained awesome list.
-- [Awesome OpenClaw by thewh1teagle](https://github.com/thewh1teagle/awesome-openclaw) - Community-maintained awesome list.
+- [Awesome OpenClaw by AIGC-Hackers](https://github.com/AIGC-Hackers/awesome-openclaw) - Focused on AI/ML integrations and generative AI use cases.
+- [Awesome OpenClaw by learnclaw](https://github.com/learnclaw/awesome-openclaw) - Beginner-friendly list with tutorials and learning resources.
+- [Awesome OpenClaw by thewh1teagle](https://github.com/thewh1teagle/awesome-openclaw) - Comprehensive collection with international resources.
 
 ---
 
 ### Contributing
-Contribution guidelines can be found [here](CONTRIBUTING.md).  
+Contribution guidelines can be found [here](CONTRIBUTING.md).<br>
 Pull request template can be found [here](.github/PULL_REQUEST_TEMPLATE.md).
