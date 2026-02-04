@@ -18,8 +18,23 @@ Contributions are welcome! Please take a moment to review this document before s
 2. **Create a new branch** for your contribution.
 3. **Add your resource** to the `README.md` file.
 4. **Ensure alphabetical order** within each section where applicable.
-5. **Commit your changes** with a descriptive message (e.g., `Add MoltWorker to Infrastructure`).
-6. **Submit a Pull Request**.
+5. **Run the linter** to validate your changes (see below).
+6. **Commit your changes** with a descriptive message (e.g., `Add MoltWorker to Infrastructure`).
+7. **Submit a Pull Request**.
+
+## Linting
+
+All pull requests are automatically validated by our linter. You can run it locally before submitting:
+
+```bash
+# Install dependencies
+npm install
+
+# Run local markdown lint
+npm run lint:local
+```
+
+This checks formatting, alphabetical order, and other quality standards.
 
 ## Contribution Criteria
 

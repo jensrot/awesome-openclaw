@@ -61,7 +61,7 @@ fi
 
 # Prompt for commit message
 echo -e "${YELLOW}Enter commit message (or press Enter for default):${NC}"
-read -p "> " COMMIT_MSG
+read -e -p "> " COMMIT_MSG
 
 if [ -z "$COMMIT_MSG" ]; then
     COMMIT_MSG="Update Awesome OpenClaw"
@@ -72,7 +72,7 @@ echo ""
 echo -e "${YELLOW}Summary:${NC}"
 echo "  Commit message: ${COMMIT_MSG}"
 echo ""
-read -p "Proceed with commit and push? (y/n): " CONFIRM
+read -e -p "Proceed with commit and push? (y/n): " CONFIRM
 
 if [[ $CONFIRM != "y" && $CONFIRM != "Y" ]]; then
     echo -e "${RED}Aborted.${NC}"
