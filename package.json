@@ -1,0 +1,29 @@
+{
+  "title": "Awesome OpenClaw",
+  "name": "awesome-openclaw",
+  "version": "1.0.0",
+  "description": "A curated list of OpenClaw tools, skills, and resources",
+  "scripts": {
+    "lint:remote": "awesome-lint https://github.com/jensrot/awesome-openclaw",
+    "lint:local": "remark README.md --use remark-lint",
+    "lint:urls": "remark README.md --use remark-lint-no-dead-urls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jensrot/awesome-openclaw.git"
+  },
+  "keywords": [
+    "awesome",
+    "awesome-list",
+    "openclaw",
+    "openclaw-skills"
+  ],
+  "author": "jensrot",
+  "license": "ISC",
+  "devDependencies": {
+    "awesome-lint": "^2.2.3",
+    "remark-cli": "^12.0.1",
+    "remark-lint": "^10.0.1",
+    "remark-lint-no-dead-urls": "^2.0.1"
+  }
+}
