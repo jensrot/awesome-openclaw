@@ -2,6 +2,9 @@
 
 # Check, commit, and push script for Awesome OpenClaw
 # Runs all lint checks before committing and pushing
+#
+# Usage: ./check-and-push.sh [commit message]
+# If commit message is provided as argument, skips the prompt
 
 # Colors for output
 RED='\033[0;31m'
@@ -49,25 +52,48 @@ if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --other
     exit 0
 fi
 
-# Prompt for commit message
-echo -e "${YELLOW}Enter commit message (or press Enter for default):${NC}"
-read -e -p "> " COMMIT_MSG
-
-if [ -z "$COMMIT_MSG" ]; then
-    COMMIT_MSG="Update Awesome OpenClaw"
+# Get commit message (from argument or prompt)
+if [ -n "$1" ]; then
+    COMMIT_MSG="$1"
+    echo -e "${YELLOW}Using provided commit message: ${COMMIT_MSG}${NC}"
+else
+    echo -e "${YELLOW}Enter commit message (or press Enter for default):${NC}"
+    read -e -p "> " COMMIT_MSG
+    if [ -z "$COMMIT_MSG" ]; then
+        COMMIT_MSG="Update Awesome OpenClaw"
+    fi
 fi
 
-# Confirm
-echo ""
-echo -e "${YELLOW}Summary:${NC}"
-echo "  Commit message: ${COMMIT_MSG}"
-echo ""
-read -e -p "Proceed with commit and push? (y/n): " CONFIRM
+# Confirmation loop (allows editing message)
+while true; do
+    echo ""
+    echo -e "${YELLOW}Summary:${NC}"
+    echo "  Commit message: ${COMMIT_MSG}"
+    echo ""
+    echo -e "${YELLOW}Options: [y]es, [e]dit message, [n]o${NC}"
+    read -e -p "> " CONFIRM
 
-if [[ $CONFIRM != "y" && $CONFIRM != "Y" ]]; then
-    echo -e "${RED}Aborted.${NC}"
-    exit 0
-fi
+    case "$CONFIRM" in
+        y|Y)
+            break
+            ;;
+        e|E)
+            echo ""
+            echo -e "${YELLOW}Enter new commit message:${NC}"
+            read -e -p "> " NEW_MSG
+            if [ -n "$NEW_MSG" ]; then
+                COMMIT_MSG="$NEW_MSG"
+            fi
+            ;;
+        n|N)
+            echo -e "${RED}Aborted.${NC}"
+            exit 0
+            ;;
+        *)
+            echo -e "${YELLOW}Please enter y, e, or n${NC}"
+            ;;
+    esac
+done
 
 # Stage all changes
 echo -e "${YELLOW}Staging changes...${NC}"
