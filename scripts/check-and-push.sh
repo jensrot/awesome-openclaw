@@ -93,3 +93,8 @@ fi
 
 echo ""
 echo -e "${GREEN}=== Successfully committed and pushed! ===${NC}"
+echo ""
+
+# Run remote check
+echo -e "${YELLOW}Running remote validation...${NC}"
+bash "$SCRIPT_DIR/check-remote.sh"
