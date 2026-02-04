@@ -74,16 +74,16 @@ Contributions are welcome!
 - [Feishu Channel](https://github.com/m1heng/clawdbot-feishu) - Feishu/Lark channel with Stream mode, AI cards, and docs/wiki tools.
 - [Foundry](https://github.com/lekt9/openclaw-foundry) - Self-writing meta-extension that observes workflows and writes extensions.
 - [GuardSpine](https://github.com/DNYoussef/guardspine-openclaw) - Deny-by-default tool gating with L0-L4 risk tiers and 3-model council verification.
-- [Home Assistant](https://github.com/techartdev/OpenClawHomeAssistant) - Home Assistant add-on to run OpenClaw directly in HA instance.
+- [Home Assistant](https://github.com/techartdev/OpenClawHomeAssistant) - Add-on to run OpenClaw directly in your HA instance.
 - [IRC Plugin](https://github.com/kcherry497/OpenClaw-IRC-Plugin) - IRC interface with KISS security principles.
 - [Manager Plugin](https://github.com/ClariSortAi/openclaw-manager-plugin) - Intelligent installation and management for OpenClaw instances.
-- [MemOS Cloud](https://github.com/MemTensor/MemOS-Cloud-OpenClaw-Plugin) - MemOS cloud-based memory backend for cross-device persistence.
+- [MemOS Cloud](https://github.com/MemTensor/MemOS-Cloud-OpenClaw-Plugin) - Cloud-based memory backend for cross-device persistence.
 - [Model Selector](https://github.com/bmbsystemsdir/openclaw-model-selector) - Smart model routing with suggest, confirm, execute, and auto-return.
 - [Observatory](https://github.com/ThisIsJeron/openclaw-observatory) - Self-hosted observability dashboard for monitoring sessions and costs.
 - [OuraClaw](https://github.com/rickybloomfield/OuraClaw) - Oura Ring integration for sleep, readiness, activity, and stress data.
 - [QQ Plugin](https://github.com/limouren01/openclaw_qq_plugin) - QQ messaging integration for Chinese users.
 - [Tesla Plugin](https://github.com/Oceanswave/openclaw-tescmd) - Tesla vehicle control and telemetry including lock, climate, and charging.
-- [Unified Memory](https://github.com/bmbsystemsdir/openclaw-unified-plugins) - Unified memory layer combining Graphiti knowledge graphs with Beads temporal memory.
+- [Unified Memory](https://github.com/bmbsystemsdir/openclaw-unified-plugins) - Combined memory layer using Graphiti knowledge graphs with Beads temporal memory.
 - [Webhook Bridge](https://github.com/robb99/clay-webhook-bridge) - Event-driven Home Assistant to OpenClaw webhook bridge for automations.
 - [WeChat Plugin](https://github.com/magicwang1111/openclaw-wechat-plugin) - WeChat messaging integration.
 - [XMTP Plugin](https://github.com/flooredApe/openclaw-xmtp) - XMTP wallet messaging for Web3 native AI agent communication.
