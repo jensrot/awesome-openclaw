@@ -35,9 +35,12 @@ npm run lint:local
 
 # Run full validation (format, alphabetical order, duplicates, etc.)
 bash scripts/validate-readme.sh
+
+# Auto-fix alphabetical order issues
+bash scripts/validate-readme.sh --fix
 ```
 
-This checks formatting, alphabetical order, duplicates, and other quality standards.
+This checks formatting, alphabetical order, duplicates, and other quality standards. Use `--fix` to automatically sort entries alphabetically within each section.
 
 ## Contribution Criteria
 

@@ -3,7 +3,12 @@
 # Validate README.md against contribution guidelines
 # Run this script to check entries conform to CONTRIBUTING.md and PULL_REQUEST_TEMPLATE.md
 #
-# Usage: bash validate-readme.sh [--quiet]
+# Usage: bash validate-readme.sh [--quiet] [--fix] [--slow]
+#
+# Options:
+#   --quiet  Suppress progress output
+#   --fix    Automatically fix alphabetical order errors
+#   --slow   Use slow mode with animated spinners (default is fast)
 #
 # Checks performed:
 # 1. Format: [Name](Link) - Description.
@@ -20,11 +25,17 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# Check for quiet mode
+# Parse command line arguments
 QUIET_MODE=false
-if [ "$1" = "--quiet" ]; then
-    QUIET_MODE=true
-fi
+FIX_MODE=false
+SLOW_MODE=false
+for arg in "$@"; do
+    case $arg in
+        --quiet) QUIET_MODE=true ;;
+        --fix) FIX_MODE=true ;;
+        --slow) SLOW_MODE=true ;;
+    esac
+done
 
 # Progress tracking
 CURRENT_STEP=0
@@ -105,6 +116,110 @@ fi
 if [ ! -f "$README" ]; then
     echo -e "${RED}ERROR: README.md not found${NC}"
     exit 1
+fi
+
+# ============================================
+# FAST MODE (default): Single-pass validation using awk
+# ============================================
+if [ "$SLOW_MODE" = false ]; then
+
+    # Run all checks in a single awk pass
+    RESULT=$(awk '
+    BEGIN {
+        format_err = 0
+        capital_err = 0
+        period_err = 0
+        alpha_err = 0
+        header_err = 0
+        prev_name = ""
+        prev_was_header = 0
+        in_toc = 0
+    }
+
+    # Track if we are in TOC (Contents section)
+    /^## Contents/ { in_toc = 1; next }
+    /^## / && !/^## Contents/ { in_toc = 0 }
+
+    # Check blank line after headers
+    /^## / {
+        prev_was_header = 1
+        prev_name = ""
+        next
+    }
+
+    # If prev was header and this line is not empty
+    prev_was_header && !/^$/ {
+        header_err++
+    }
+
+    { prev_was_header = 0 }
+
+    # Skip TOC entries and non-entry lines
+    !/^- \[/ { next }
+    /^- \[.*\]\(#/ { next }
+
+    # Entry line processing
+    {
+        line = $0
+
+        # Check format: - [Name](URL) - Description
+        if (line !~ /^- \[[^\]]+\]\(https?:\/\/[^)]+\) - .+$/) {
+            format_err++
+        }
+
+        # Extract description (after "] - ")
+        if (match(line, /\] - (.+)$/, arr)) {
+            desc = arr[1]
+            # Check capital letter
+            first = substr(desc, 1, 1)
+            if (first !~ /[A-Z]/) {
+                capital_err++
+            }
+            # Check period
+            if (line !~ /\.$/) {
+                period_err++
+            }
+        }
+
+        # Extract name for alphabetical check
+        if (match(line, /\[([^\]]+)\]/, arr)) {
+            name = tolower(arr[1])
+            if (prev_name != "" && prev_name > name) {
+                alpha_err++
+            }
+            prev_name = name
+        }
+    }
+
+    END {
+        print format_err, capital_err, period_err, alpha_err, header_err
+    }
+    ' "$README")
+
+    # Parse results
+    read -r FORMAT_ERR CAPITAL_ERR PERIOD_ERR ALPHA_ERR HEADER_ERR <<< "$RESULT"
+
+    # Check duplicates (still needs separate command but fast)
+    DUP_COUNT=$(grep -oP "(?<=^- \[)[^\]]+" "$README" | sort | uniq -d | wc -l)
+
+    TOTAL_ERRORS=$((FORMAT_ERR + CAPITAL_ERR + PERIOD_ERR + ALPHA_ERR + HEADER_ERR + DUP_COUNT))
+
+    if [ "$QUIET_MODE" = false ]; then
+        [ $FORMAT_ERR -eq 0 ] && echo -e "${GREEN}✓${NC} Entry format" || echo -e "${RED}✗${NC} Entry format ($FORMAT_ERR errors)"
+        [ $CAPITAL_ERR -eq 0 ] && echo -e "${GREEN}✓${NC} Capital letters" || echo -e "${RED}✗${NC} Capital letters ($CAPITAL_ERR errors)"
+        [ $PERIOD_ERR -eq 0 ] && echo -e "${GREEN}✓${NC} Ending periods" || echo -e "${RED}✗${NC} Ending periods ($PERIOD_ERR errors)"
+        [ $ALPHA_ERR -eq 0 ] && echo -e "${GREEN}✓${NC} Alphabetical order" || echo -e "${RED}✗${NC} Alphabetical order ($ALPHA_ERR errors)"
+        [ $DUP_COUNT -eq 0 ] && echo -e "${GREEN}✓${NC} No duplicates" || echo -e "${RED}✗${NC} Duplicates ($DUP_COUNT found)"
+        [ $HEADER_ERR -eq 0 ] && echo -e "${GREEN}✓${NC} Blank lines after headers" || echo -e "${RED}✗${NC} Blank lines ($HEADER_ERR errors)"
+        echo ""
+        if [ $TOTAL_ERRORS -eq 0 ]; then
+            echo -e "${GREEN}All checks passed!${NC}"
+        else
+            echo -e "${RED}Found $TOTAL_ERRORS error(s)${NC}"
+        fi
+    fi
+
+    exit $( [ $TOTAL_ERRORS -eq 0 ] && echo 0 || echo 1 )
 fi
 
 # ============================================
@@ -249,6 +364,75 @@ if [ "$QUIET_MODE" = false ]; then
     else
         stop_spinner "Alphabetical order" "fail" $CHECK4_ERRORS
     fi
+fi
+
+# ============================================
+# Fix alphabetical order if --fix flag is set
+# ============================================
+if [ "$FIX_MODE" = true ] && [ $CHECK4_ERRORS -gt 0 ]; then
+    if [ "$QUIET_MODE" = false ]; then
+        echo -e "${YELLOW}Fixing alphabetical order...${NC}"
+    fi
+
+    # Create temp files for processing
+    TEMP_FILE=$(mktemp)
+    ENTRIES_FILE=$(mktemp)
+
+    # Process README line by line
+    in_section=false
+    collecting_entries=false
+
+    while IFS= read -r line; do
+        # Check if this is a section header (## )
+        if echo "$line" | grep -qE '^## '; then
+            # Output any collected entries from previous section (sorted)
+            if [ -s "$ENTRIES_FILE" ]; then
+                # Sort by the name inside brackets (case-insensitive)
+                while IFS= read -r entry; do
+                    name=$(echo "$entry" | sed -n 's/^- \[\([^]]*\)\].*/\1/p' | tr '[:upper:]' '[:lower:]')
+                    printf '%s\t%s\n' "$name" "$entry"
+                done < "$ENTRIES_FILE" | sort -t$'\t' -k1 | cut -f2- >> "$TEMP_FILE"
+                > "$ENTRIES_FILE"
+            fi
+            collecting_entries=true
+            echo "$line" >> "$TEMP_FILE"
+        # Check if this is an entry line (- [) but not TOC entry
+        elif echo "$line" | grep -qE '^- \[' && ! echo "$line" | grep -qE '^- \[.*\]\(#'; then
+            echo "$line" >> "$ENTRIES_FILE"
+        else
+            # Output any collected entries before non-entry line
+            if [ -s "$ENTRIES_FILE" ]; then
+                while IFS= read -r entry; do
+                    name=$(echo "$entry" | sed -n 's/^- \[\([^]]*\)\].*/\1/p' | tr '[:upper:]' '[:lower:]')
+                    printf '%s\t%s\n' "$name" "$entry"
+                done < "$ENTRIES_FILE" | sort -t$'\t' -k1 | cut -f2- >> "$TEMP_FILE"
+                > "$ENTRIES_FILE"
+            fi
+            echo "$line" >> "$TEMP_FILE"
+        fi
+    done < "$README"
+
+    # Output any remaining entries
+    if [ -s "$ENTRIES_FILE" ]; then
+        while IFS= read -r entry; do
+            name=$(echo "$entry" | sed -n 's/^- \[\([^]]*\)\].*/\1/p' | tr '[:upper:]' '[:lower:]')
+            printf '%s\t%s\n' "$name" "$entry"
+        done < "$ENTRIES_FILE" | sort -t$'\t' -k1 | cut -f2- >> "$TEMP_FILE"
+    fi
+
+    # Clean up temp entries file
+    rm -f "$ENTRIES_FILE"
+
+    # Replace original file
+    mv "$TEMP_FILE" "$README"
+
+    if [ "$QUIET_MODE" = false ]; then
+        echo -e "${GREEN}Fixed alphabetical order in README.md${NC}"
+    fi
+
+    # Reset error count for this check since we fixed it
+    ERRORS=$((ERRORS - CHECK4_ERRORS))
+    CHECK4_ERRORS=0
 fi
 
 # ============================================
