@@ -7,33 +7,21 @@
     </picture>
 </p>
 
-<p align="center">
-    <a href="https://github.com/jensrot/awesome-openclaw/stargazers"><img src="https://img.shields.io/github/stars/jensrot/awesome-openclaw?style=social" alt="Stars"></a>
-    <a href="https://github.com/jensrot/awesome-openclaw/commits/main"><img src="https://img.shields.io/github/last-commit/jensrot/awesome-openclaw" alt="Last Commit"></a>
-    <a href="https://github.com/jensrot/awesome-openclaw/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-ISC-blue" alt="License"></a>
-    <a href="https://github.com/jensrot/awesome-openclaw/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
-</p>
-
 This list is a collection of tools, projects, and resources related to [OpenClaw](https://openclaw.ai).
 
-The plan is to eventually add this to: [awesome](https://github.com/sindresorhus/awesome/blob/main/awesome.md)
-
-Contributions are welcome! Please read the [contribution](CONTRIBUTING.md) guidelines first.
+Contributions are welcome!
 
 ## Contents
 
-- [Awesome OpenClaw ](#awesome-openclaw-)
-  - [Contents](#contents)
-  - [Platforms](#platforms)
-  - [Games](#games)
-  - [Services](#services)
-  - [Skills](#skills)
-  - [Infrastructure](#infrastructure)
-  - [Community](#community)
-  - [Articles \& Tutorials](#articles--tutorials)
-  - [People to Follow](#people-to-follow)
-  - [Other Awesome Lists](#other-awesome-lists)
-    - [Contributing](#contributing)
+- [Platforms](#platforms)
+- [Games](#games)
+- [Services](#services)
+- [Skills](#skills)
+- [Infrastructure](#infrastructure)
+- [Community](#community)
+- [Articles & Tutorials](#articles--tutorials)
+- [People to Follow](#people-to-follow)
+- [Other Awesome Lists](#other-awesome-lists)
 
 ## Platforms
 - [ClawFOMO](https://clawfomo.com) - Real-time tracking of agent activity and viral trends.

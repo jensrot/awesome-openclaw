@@ -19,7 +19,7 @@
     "openclaw-skills"
   ],
   "author": "jensrot",
-  "license": "ISC",
+  "license": "CC0-1.0",
   "devDependencies": {
     "awesome-lint": "^2.2.3",
     "remark-cli": "^12.0.1",
