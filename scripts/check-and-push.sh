@@ -10,35 +10,106 @@
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 NC='\033[0m' # No Color
+
+# Progress tracking
+CURRENT_STEP=0
+TOTAL_STEPS=7  # lint:local, lint:urls, validate, stage, commit, push, remote
+
+# Spinner characters
+SPIN='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+SPIN_WIDTH=3
+
+# Show progress bar with spinner
+# Usage: show_progress_spinner "message" &
+show_progress_spinner() {
+    local msg="$1"
+    local i=0
+
+    while true; do
+        local percent=$((CURRENT_STEP * 100 / TOTAL_STEPS))
+        local filled=$((percent / 5))
+        local empty=$((20 - filled))
+
+        local bar=""
+        for ((j=0; j<filled; j++)); do bar+="█"; done
+        for ((j=0; j<empty; j++)); do bar+="░"; done
+
+        local spin_char="${SPIN:$i:$SPIN_WIDTH}"
+        printf "\r${BLUE}[%s] %3d%% ${YELLOW}%s ${NC}%s" "$bar" "$percent" "$msg" "$spin_char"
+
+        i=$(( (i + SPIN_WIDTH) % ${#SPIN} ))
+        sleep 0.1
+    done
+}
+
+# Run command with spinner and progress bar
+# Usage: run_with_progress "message" command args...
+run_with_progress() {
+    local msg="$1"
+    shift
+
+    # Start spinner in background
+    show_progress_spinner "$msg" &
+    local spinner_pid=$!
+
+    # Run command and capture output
+    local tmpfile=$(mktemp)
+    "$@" > "$tmpfile" 2>&1
+    local exit_code=$?
+
+    # Stop spinner
+    kill $spinner_pid 2>/dev/null
+    wait $spinner_pid 2>/dev/null
+
+    # Update progress
+    ((CURRENT_STEP++))
+    local percent=$((CURRENT_STEP * 100 / TOTAL_STEPS))
+    local filled=$((percent / 5))
+    local empty=$((20 - filled))
+
+    local bar=""
+    for ((j=0; j<filled; j++)); do bar+="█"; done
+    for ((j=0; j<empty; j++)); do bar+="░"; done
+
+    # Show result
+    printf "\r"
+    if [ $exit_code -eq 0 ]; then
+        printf "${BLUE}[%s] %3d%% ${YELLOW}%s ${GREEN}✓${NC}      \n" "$bar" "$percent" "$msg"
+    else
+        printf "${BLUE}[%s] %3d%% ${YELLOW}%s ${RED}✗${NC}      \n" "$bar" "$percent" "$msg"
+        cat "$tmpfile"
+    fi
+
+    rm -f "$tmpfile"
+    return $exit_code
+}
 
 echo -e "${YELLOW}=== Awesome OpenClaw - Check & Push ===${NC}"
 echo ""
 
+# Get script directory early
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Step 1: Run lint:local
-echo -e "${YELLOW}[1/3] Running local lint (remark)...${NC}"
-npm run lint:local --silent
+run_with_progress "Running local lint (remark)..." npm run lint:local --silent
 if [ $? -ne 0 ]; then
     echo -e "${RED}Local lint failed! Please fix the issues above.${NC}"
     exit 1
 fi
-echo -e "${GREEN}✓ Local lint passed${NC}"
-echo ""
 
 # Step 2: Run lint:urls (optional - warnings only)
-echo -e "${YELLOW}[2/3] Checking URLs (warnings only)...${NC}"
-npm run lint:urls 2>&1 | tail -5
-echo -e "${YELLOW}Note: URL check warnings are informational only${NC}"
-echo ""
+run_with_progress "Checking URLs..." npm run lint:urls --silent
+# Don't fail on URL check - informational only
 
-# Step 3: Run custom validation (format, alphabetical order, duplicates)
-echo -e "${YELLOW}[3/3] Validating contribution guidelines...${NC}"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-bash "$SCRIPT_DIR/validate-readme.sh"
+# Step 3: Run custom validation
+run_with_progress "Validating contribution guidelines..." bash "$SCRIPT_DIR/validate-readme.sh" --quiet
 if [ $? -ne 0 ]; then
-    echo -e "${RED}Validation failed! Please fix the issues above.${NC}"
+    echo -e "${RED}Validation failed! Run 'bash scripts/validate-readme.sh' for details.${NC}"
     exit 1
 fi
+
 echo ""
 
 # Show current status
@@ -96,22 +167,17 @@ while true; do
 done
 
 # Stage all changes
-echo -e "${YELLOW}Staging changes...${NC}"
-git add -A
+run_with_progress "Staging changes..." git add -A
 
 # Commit
-echo -e "${YELLOW}Creating commit...${NC}"
-git commit -m "$COMMIT_MSG"
-
+run_with_progress "Creating commit..." git commit -m "$COMMIT_MSG"
 if [ $? -ne 0 ]; then
     echo -e "${RED}Commit failed!${NC}"
     exit 1
 fi
 
 # Push
-echo -e "${YELLOW}Pushing to remote...${NC}"
-git push origin main
-
+run_with_progress "Pushing to remote..." git push origin main
 if [ $? -ne 0 ]; then
     echo -e "${RED}Push failed!${NC}"
     exit 1
@@ -122,5 +188,8 @@ echo -e "${GREEN}=== Successfully committed and pushed! ===${NC}"
 echo ""
 
 # Run remote check
-echo -e "${YELLOW}Running remote validation...${NC}"
-bash "$SCRIPT_DIR/check-remote.sh"
+run_with_progress "Running remote validation..." npm run lint:remote --silent
+
+# Final progress - 100%
+echo ""
+printf "${BLUE}[████████████████████] 100%% ${GREEN}Complete!${NC}\n"

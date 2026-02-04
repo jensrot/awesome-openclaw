@@ -32,9 +32,12 @@ npm install
 
 # Run local markdown lint
 npm run lint:local
+
+# Run full validation (format, alphabetical order, duplicates, etc.)
+bash scripts/validate-readme.sh
 ```
 
-This checks formatting, alphabetical order, and other quality standards.
+This checks formatting, alphabetical order, duplicates, and other quality standards.
 
 ## Contribution Criteria
 
