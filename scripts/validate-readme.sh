@@ -9,7 +9,7 @@
 # 3. Description ends with period
 # 4. Alphabetical order within sections
 # 5. No duplicate entry names
-# 6. No empty descriptions
+# 6. Blank line after section headers
 
 # Colors for output
 RED='\033[0;31m'
@@ -37,7 +37,7 @@ fi
 # ============================================
 # Check 1: Entry format [Name](Link) - Description.
 # ============================================
-echo -e "${YELLOW}[1/5] Checking entry format...${NC}"
+echo -e "${YELLOW}[1/6] Checking entry format...${NC}"
 
 # Find all list entries (lines starting with "- [")
 while IFS= read -r line; do
@@ -65,7 +65,7 @@ fi
 # ============================================
 # Check 2: Description starts with capital letter
 # ============================================
-echo -e "${YELLOW}[2/5] Checking descriptions start with capital letter...${NC}"
+echo -e "${YELLOW}[2/6] Checking descriptions start with capital letter...${NC}"
 
 FORMAT_ERRORS=$ERRORS
 while IFS= read -r line; do
@@ -100,7 +100,7 @@ fi
 # ============================================
 # Check 3: Description ends with period
 # ============================================
-echo -e "${YELLOW}[3/5] Checking descriptions end with period...${NC}"
+echo -e "${YELLOW}[3/6] Checking descriptions end with period...${NC}"
 
 CAPITAL_ERRORS=$ERRORS
 while IFS= read -r line; do
@@ -127,7 +127,7 @@ fi
 # ============================================
 # Check 4: Alphabetical order within sections
 # ============================================
-echo -e "${YELLOW}[4/5] Checking alphabetical order within sections...${NC}"
+echo -e "${YELLOW}[4/6] Checking alphabetical order within sections...${NC}"
 
 PERIOD_ERRORS=$ERRORS
 current_section=""
@@ -178,7 +178,7 @@ fi
 # ============================================
 # Check 5: No duplicate entry names
 # ============================================
-echo -e "${YELLOW}[5/5] Checking for duplicate entry names...${NC}"
+echo -e "${YELLOW}[5/6] Checking for duplicate entry names...${NC}"
 
 ALPHA_ERRORS=$ERRORS
 
@@ -199,6 +199,35 @@ ERRORS=$((ERRORS + DUP_COUNT))
 
 if [ $DUP_COUNT -eq 0 ]; then
     echo -e "${GREEN}  ✓ No duplicate entry names${NC}"
+fi
+
+# ============================================
+# Check 6: Blank line after section headers
+# ============================================
+echo -e "${YELLOW}[6/6] Checking blank line after section headers...${NC}"
+
+HEADER_ERRORS=0
+prev_line=""
+prev_line_num=0
+
+while IFS= read -r line; do
+    line_num=$(echo "$line" | cut -d: -f1)
+    content=$(echo "$line" | cut -d: -f2-)
+
+    # If previous line was a section header (## ), current line should be empty
+    if echo "$prev_line" | grep -qE '^## ' && [ -n "$content" ]; then
+        section_name=$(echo "$prev_line" | sed 's/^## //')
+        echo -e "${RED}  Missing blank line after '## $section_name' (line $prev_line_num)${NC}"
+        ((HEADER_ERRORS++))
+        ((ERRORS++))
+    fi
+
+    prev_line="$content"
+    prev_line_num="$line_num"
+done < <(grep -n '' "$README")
+
+if [ $HEADER_ERRORS -eq 0 ]; then
+    echo -e "${GREEN}  ✓ All section headers have blank line after them${NC}"
 fi
 
 # ============================================

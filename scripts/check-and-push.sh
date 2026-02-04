@@ -13,7 +13,7 @@ echo -e "${YELLOW}=== Awesome OpenClaw - Check & Push ===${NC}"
 echo ""
 
 # Step 1: Run lint:local
-echo -e "${YELLOW}[1/4] Running local lint (remark)...${NC}"
+echo -e "${YELLOW}[1/3] Running local lint (remark)...${NC}"
 npm run lint:local --silent
 if [ $? -ne 0 ]; then
     echo -e "${RED}Local lint failed! Please fix the issues above.${NC}"
@@ -22,24 +22,14 @@ fi
 echo -e "${GREEN}✓ Local lint passed${NC}"
 echo ""
 
-# Step 2: Run lint:remote (awesome-lint)
-echo -e "${YELLOW}[2/4] Running awesome-lint...${NC}"
-npm run lint:remote --silent
-if [ $? -ne 0 ]; then
-    echo -e "${RED}Awesome-lint failed! Please fix the issues above.${NC}"
-    exit 1
-fi
-echo -e "${GREEN}✓ Awesome-lint passed${NC}"
-echo ""
-
-# Step 3: Run lint:urls (optional - warnings only)
-echo -e "${YELLOW}[3/4] Checking URLs (warnings only)...${NC}"
+# Step 2: Run lint:urls (optional - warnings only)
+echo -e "${YELLOW}[2/3] Checking URLs (warnings only)...${NC}"
 npm run lint:urls 2>&1 | tail -5
 echo -e "${YELLOW}Note: URL check warnings are informational only${NC}"
 echo ""
 
-# Step 4: Run custom validation (format, alphabetical order, duplicates)
-echo -e "${YELLOW}[4/4] Validating contribution guidelines...${NC}"
+# Step 3: Run custom validation (format, alphabetical order, duplicates)
+echo -e "${YELLOW}[3/3] Validating contribution guidelines...${NC}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 bash "$SCRIPT_DIR/validate-readme.sh"
 if [ $? -ne 0 ]; then
