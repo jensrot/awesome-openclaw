@@ -142,3 +142,4 @@ Contributions are welcome!
 ### Contributing
 Contribution guidelines can be found [here](CONTRIBUTING.md).<br>
 Pull request template can be found [here](.github/PULL_REQUEST_TEMPLATE.md).
+- **[ClawdTalk](https://clawdtalk.com)** - Phone calling and SMS for OpenClaw. Call your AI agent from any phone with deep tool integration for calendar, Jira, web search, and more. Powered by Telnyx.
