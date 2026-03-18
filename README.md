@@ -18,7 +18,6 @@ Contributions are welcome!
 - [Official Resources](#official-resources)
 - [Platforms](#platforms)
 - [Games](#games)
-- [Services](#services)
 - [Plugins](#plugins)
 - [Skills](#skills)
 - [Infrastructure](#infrastructure)
@@ -108,7 +107,7 @@ Contributions are welcome!
 ## OpenClaw Forks
 
 - [IronClaw](https://github.com/nearai/ironclaw) - OpenClaw fork focused on gameplay and engine improvements.
-- [NanoClaw](https://github.com/qwibitai/nanoclaw) - nanobot: The Ultra-Lightweight OpenClaw
+- [NanoClaw](https://github.com/qwibitai/nanoclaw) - nanobot: The Ultra-Lightweight OpenClaw.
 - [OpenClaw-Composio](https://github.com/ComposioHQ/openclaw-composio) - OpenClaw fork with integrated Composio plugin for easy tool authentication.
 - [PicoClaw](https://github.com/sipeed/picoclaw) - Ultra-lightweight personal AI assistant inspired by nanobot, refactored from the ground up in Go through a self-bootstrapping process where the AI agent itself drove the entire architectural migration and code optimization.
 - [Secure OpenClaw](https://github.com/ComposioHQ/secure-openclaw) - A personal 24x7 AI assistant like OpenClaw that runs on your messaging platforms, with full tool access, persistent memory, scheduled reminders, and integrations with 500+ apps.
