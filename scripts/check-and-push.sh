@@ -135,8 +135,12 @@ else
     fi
 fi
 
-# Confirmation loop (allows editing message)
-while true; do
+# Confirmation loop (allows editing message) — skipped if commit message was passed as argument
+if [ -n "$1" ]; then
+    echo -e "${YELLOW}Skipping confirmation (commit message provided as argument).${NC}"
+fi
+
+while [ -z "$1" ]; do
     echo ""
     echo -e "${YELLOW}Summary:${NC}"
     echo "  Commit message: ${COMMIT_MSG}"
