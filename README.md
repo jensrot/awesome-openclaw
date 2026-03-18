@@ -22,6 +22,7 @@ Contributions are welcome!
 - [Plugins](#plugins)
 - [Skills](#skills)
 - [Infrastructure](#infrastructure)
+- [OpenClaw Forks](#openclaw-forks)
 - [Security](#security)
 - [Community](#community)
 - [Articles & Tutorials](#articles--tutorials)
@@ -58,11 +59,6 @@ Contributions are welcome!
 
 - [ClawArena](https://clawarena.ai) - Prediction arena where AI agents forecast Kalshi market outcomes and compete.
 - [Clawstead](https://www.clawstead.com) - Simulated world where AI agents mine, trade, build, and live together.
-- [Moltbook town](https://moltbooktown.xyz/) - A virtual environment for agents to live and interact.
-
-## Services
-
-- [LearnClaw](https://learnclaw.ai/) - Educational resources and tutorials for OpenClaw development.
 
 ## Plugins
 
@@ -83,7 +79,6 @@ Contributions are welcome!
 - [OuraClaw](https://github.com/rickybloomfield/OuraClaw) - Oura Ring integration for sleep, readiness, activity, and stress data.
 - [QQ Plugin](https://github.com/limouren01/openclaw_qq_plugin) - QQ messaging integration for Chinese users.
 - [Tesla Plugin](https://github.com/Oceanswave/openclaw-tescmd) - Tesla vehicle control and telemetry including lock, climate, and charging.
-- [Unified Memory](https://github.com/bmbsystemsdir/openclaw-unified-plugins) - Combined memory layer using Graphiti knowledge graphs with Beads temporal memory.
 - [Webhook Bridge](https://github.com/robb99/clay-webhook-bridge) - Event-driven Home Assistant to OpenClaw webhook bridge for automations.
 - [WeChat Plugin](https://github.com/magicwang1111/openclaw-wechat-plugin) - WeChat messaging integration.
 - [XMTP Plugin](https://github.com/flooredApe/openclaw-xmtp) - XMTP wallet messaging for Web3 native AI agent communication.
@@ -102,11 +97,21 @@ Contributions are welcome!
 
 - [ClawHub Repository](https://github.com/openclaw/clawhub) - The official Skill Directory source code for OpenClaw.
 - [ClawScan](https://clawscan.io) - OpenClaw tool directory and project index for discovering agent services.
+- [FreeClaw](https://github.com/KLD997/FreeClaw) - FreeBSD port of OpenClaw with VNET jails, ZFS storage, and rc.d service integration.
 - [MoltBunker](https://moltbunker.com) - Secure persistence and storage layer for Molt agents.
 - [MoltRoad](https://moltroad.com/) - An experimental and unrestricted marketplace for agent capabilities.
 - [MoltWorker](https://github.com/cloudflare/moltworker) - Toolkit for deploying OpenClaw on Cloudflare Workers and Sandboxes.
+- [OpenClaw Unraid](https://github.com/jdhill777/openclaw-unraid) - OpenClaw integration for the Unraid server platform.
 - [Skills Archive](https://github.com/openclaw/skills) - Archive of all skill versions from ClawHub.
 - [Virtuals](https://www.virtuals.io) - Tokenized AI agent platform for decentralized co-ownership and monetization.
+
+## OpenClaw Forks
+
+- [IronClaw](https://github.com/nearai/ironclaw) - OpenClaw fork focused on gameplay and engine improvements.
+- [NanoClaw](https://github.com/qwibitai/nanoclaw) - nanobot: The Ultra-Lightweight OpenClaw
+- [OpenClaw-Composio](https://github.com/ComposioHQ/openclaw-composio) - OpenClaw fork with integrated Composio plugin for easy tool authentication.
+- [PicoClaw](https://github.com/sipeed/picoclaw) - Ultra-lightweight personal AI assistant inspired by nanobot, refactored from the ground up in Go through a self-bootstrapping process where the AI agent itself drove the entire architectural migration and code optimization.
+- [Secure OpenClaw](https://github.com/ComposioHQ/secure-openclaw) - A personal 24x7 AI assistant like OpenClaw that runs on your messaging platforms, with full tool access, persistent memory, scheduled reminders, and integrations with 500+ apps.
 
 ## Security
 
@@ -122,6 +127,11 @@ Contributions are welcome!
 
 - [DEV Community Guide](https://dev.to/mechcloud_academy/unleashing-openclaw-the-ultimate-guide-to-local-ai-agents-for-developers-in-2026-3k0h) - The ultimate guide to local AI agents for developers.
 - [DigitalOcean Guide](https://www.digitalocean.com/resources/articles/what-is-openclaw) - What is OpenClaw? A comprehensive introduction.
+- [How Clawdbot Remembers Everything](https://x.com/manthanguptaa/status/2015780646770323543) - Thread by @manthanguptaa on ClawdBot's memory capabilities.
+- [Julian Goldie SEO Review](https://youtu.be/-1aE9tEPgvk?si=0bhchjyt66di6VsC) - Video review and showcase of ClawdBot capabilities.
+- [MarkTechPost Guide](https://www.marktechpost.com/2026/01/25/what-is-clawdbot-how-a-local-first-agent-stack-turns-chats-into-real-automations) - How a local-first agent stack turns chats into real automations.
+- [OpenClaw Book](https://openclawconsultant.com/openclaw-book) - Book on OpenClaw by OpenClaw Consultant.
+- [You Could've Invented OpenClaw](https://x.com/dabit3/status/2021387483364151451) - Thread by @dabit3 on the ideas behind OpenClaw.
 
 ## People to Follow
 
@@ -131,11 +141,17 @@ Contributions are welcome!
 
 ## Other Awesome Lists
 
+- [Awesome ClawdBot Skills by VoltAgent](https://github.com/VoltAgent/awesome-clawdbot-skills) - A curated collection of ClawdBot agent skills.
+- [Awesome Molt Ecosystem by eltociear](https://github.com/eltociear/awesome-molt-ecosystem) - A curated list of Molt ecosystem resources.
+- [Awesome OpenClaw Agents by mergisi](https://github.com/mergisi/awesome-openclaw-agents) - A curated list of OpenClaw agents.
 - [Awesome OpenClaw by AIGC-Hackers](https://github.com/AIGC-Hackers/awesome-openclaw) - Focused on AI/ML integrations and generative AI use cases.
 - [Awesome OpenClaw by LAMBDASOFT](https://github.com/LAMBDASOFT-org/awesome-openclaw-ecosystem) - Comprehensive ecosystem list with social platforms and marketplaces.
-- [Awesome OpenClaw by learnclaw](https://github.com/learnclaw/awesome-openclaw) - Beginner-friendly list with tutorials and learning resources.
+- [Awesome OpenClaw by rohitg00](https://github.com/rohitg00/awesome-openclaw) - A curated list of awesome OpenClaw resources.
+- [Awesome OpenClaw by SamurAIGPT](https://github.com/SamurAIGPT/awesome-openclaw) - A curated list of OpenClaw resources and tools.
 - [Awesome OpenClaw by thewh1teagle](https://github.com/thewh1teagle/awesome-openclaw) - Comprehensive collection with international resources.
 - [Awesome OpenClaw Plugins](https://github.com/ThisIsJeron/awesome-openclaw-plugins) - Curated list of OpenClaw plugins for channels, IoT, memory, and more.
+- [Awesome OpenClaw Use Cases by hesamsheikh](https://github.com/hesamsheikh/awesome-openclaw-usecases) - A curated collection of OpenClaw use cases and examples.
+- [Awesome OpenClaw Use Cases Moltbook by EvoLinkAI](https://github.com/EvoLinkAI/awesome-openclaw-usecases-moltbook) - A curated collection of OpenClaw use cases focused on Moltbook.
 
 ---
 
