@@ -78,6 +78,7 @@ Contributions are welcome!
 - [OuraClaw](https://github.com/rickybloomfield/OuraClaw) - Oura Ring integration for sleep, readiness, activity, and stress data.
 - [QQ Plugin](https://github.com/limouren01/openclaw_qq_plugin) - QQ messaging integration for Chinese users.
 - [Tesla Plugin](https://github.com/Oceanswave/openclaw-tescmd) - Tesla vehicle control and telemetry including lock, climate, and charging.
+- [TweetClaw](https://github.com/Xquik-dev/tweetclaw) - X/Twitter automation plugin for posting, replying, engagement, search, and account workflows through Xquik.
 - [Webhook Bridge](https://github.com/robb99/clay-webhook-bridge) - Event-driven Home Assistant to OpenClaw webhook bridge for automations.
 - [WeChat Plugin](https://github.com/magicwang1111/openclaw-wechat-plugin) - WeChat messaging integration.
 - [XMTP Plugin](https://github.com/flooredApe/openclaw-xmtp) - XMTP wallet messaging for Web3 native AI agent communication.
