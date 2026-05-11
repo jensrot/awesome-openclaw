@@ -102,6 +102,7 @@ Contributions are welcome!
 - [MoltWorker](https://github.com/cloudflare/moltworker) - Toolkit for deploying OpenClaw on Cloudflare Workers and Sandboxes.
 - [OpenClaw Unraid](https://github.com/jdhill777/openclaw-unraid) - OpenClaw integration for the Unraid server platform.
 - [Skills Archive](https://github.com/openclaw/skills) - Archive of all skill versions from ClawHub.
+- [ToolRouter](https://toolrouter.com) - Give your AI agent superpowers with access to 150+ tools on demand with just one account. Competitor research, video production, web search, image generation, security scanning, and more. Works with ChatGPT, Claude, Cursor, and any MCP client. `npx -y toolrouter-mcp`
 - [Virtuals](https://www.virtuals.io) - Tokenized AI agent platform for decentralized co-ownership and monetization.
 
 ## OpenClaw Forks
