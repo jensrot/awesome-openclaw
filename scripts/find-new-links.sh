@@ -40,6 +40,12 @@ if ! command -v curl &> /dev/null; then
     exit 1
 fi
 
+# Build auth header if GITHUB_TOKEN is set (raises rate limit from 60 to 5000 req/hour)
+CURL_AUTH=()
+if [ -n "$GITHUB_TOKEN" ]; then
+    CURL_AUTH=(-H "Authorization: Bearer $GITHUB_TOKEN")
+fi
+
 # Extract existing links from our README
 echo -e "${YELLOW}[1/4] Extracting existing links from README...${NC}"
 grep -oP 'https?://[^\s\)\]>"]+' "$README" | sort -u > "$TEMP_DIR/existing_links.txt"
@@ -54,7 +60,7 @@ echo -e "${YELLOW}[2/4] Searching GitHub for '$SEARCH_TERM' repositories...${NC}
 ENCODED_SEARCH=$(echo "$SEARCH_TERM" | sed 's/ /%20/g')
 
 # Search GitHub API
-curl -s "https://api.github.com/search/repositories?q=$ENCODED_SEARCH&per_page=50" > "$TEMP_DIR/repos.json"
+curl -s "${CURL_AUTH[@]}" "https://api.github.com/search/repositories?q=$ENCODED_SEARCH&per_page=50" > "$TEMP_DIR/repos.json"
 
 if [ ! -s "$TEMP_DIR/repos.json" ] || grep -q "API rate limit" "$TEMP_DIR/repos.json"; then
     echo -e "${RED}  API request failed or rate limited${NC}"
@@ -84,7 +90,7 @@ for REPO in $REPOS; do
     printf "\r  Processing %d/%d: %-60s" "$CURRENT" "$REPO_COUNT" "$REPO"
 
     # Fetch README via GitHub API
-    README_CONTENT=$(curl -s "https://api.github.com/repos/$REPO/readme" | \
+    README_CONTENT=$(curl -s "${CURL_AUTH[@]}" "https://api.github.com/repos/$REPO/readme" | \
         grep -oP '"content":\s*"[^"]+"' | \
         cut -d'"' -f4 | \
         tr -d '\n' | \

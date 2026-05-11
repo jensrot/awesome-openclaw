@@ -1,0 +1,69 @@
+name: Find New Links
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday at 9am UTC
+  workflow_dispatch:
+
+jobs:
+  find-links:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run link finder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x scripts/find-new-links.sh
+          bash scripts/find-new-links.sh
+
+      - name: Check for new links
+        id: check
+        run: |
+          if [ -f new-links-found.md ]; then
+            COUNT=$(grep "Total new links found:" new-links-found.md | grep -oP '\d+' || echo "0")
+            echo "found=true" >> $GITHUB_OUTPUT
+            echo "count=$COUNT" >> $GITHUB_OUTPUT
+          else
+            echo "found=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Open PR with findings
+        if: steps.check.outputs.found == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="auto/new-links-$(date +%Y-%m-%d)"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "$BRANCH"
+          git add new-links-found.md
+          git commit -m "chore: found ${{ steps.check.outputs.count }} new links for review"
+          git push origin "$BRANCH"
+
+          COUNT="${{ steps.check.outputs.count }}"
+          {
+            echo "## New links found"
+            echo ""
+            echo "The weekly link finder discovered **${COUNT}** new links from other awesome-openclaw repositories."
+            echo ""
+            echo "Review \`new-links-found.md\` in this PR and manually add any worthy entries to \`README.md\`."
+            echo ""
+            echo "**Do not merge this PR as-is** — it is a research artifact for human curation, not a direct README change."
+            echo ""
+            cat new-links-found.md
+          } > /tmp/pr-body.md
+
+          gh pr create \
+            --title "New links found for review ($(date +%Y-%m-%d))" \
+            --body-file /tmp/pr-body.md \
+            --base main \
+            --head "$BRANCH"
