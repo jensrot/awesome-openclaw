@@ -75,6 +75,7 @@ Contributions are welcome!
 - [MemOS Cloud](https://github.com/MemTensor/MemOS-Cloud-OpenClaw-Plugin) - Cloud-based memory backend for cross-device persistence.
 - [Model Selector](https://github.com/bmbsystemsdir/openclaw-model-selector) - Smart model routing with suggest, confirm, execute, and auto-return.
 - [Observatory](https://github.com/ThisIsJeron/openclaw-observatory) - Self-hosted observability dashboard for monitoring sessions and costs.
+- [OpenClaw Monitor](https://github.com/flik2002/openclaw-monitor) - Free open-source monitoring dashboard for OpenClaw AI agents — token usage, session tracking, 7-day trends, multi-model support. Vue 3 + ECharts, self-hosted.
 - [OuraClaw](https://github.com/rickybloomfield/OuraClaw) - Oura Ring integration for sleep, readiness, activity, and stress data.
 - [QQ Plugin](https://github.com/limouren01/openclaw_qq_plugin) - QQ messaging integration for Chinese users.
 - [Tesla Plugin](https://github.com/Oceanswave/openclaw-tescmd) - Tesla vehicle control and telemetry including lock, climate, and charging.
