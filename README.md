@@ -91,6 +91,7 @@ Contributions are welcome!
 - [Awesome OpenClaw Skills by VoltAgent](https://github.com/VoltAgent/awesome-openclaw-skills) - A curated and filtered collection of 1,700+ functional agent skills.
 - [BankrBot Skills](https://github.com/BankrBot/openclaw-skills) - Specialized skills for DeFi, banking, and Polymarket integrations.
 - [ClawHub](https://www.clawhub.ai) - The primary public registry for publishing and finding agent skills.
+- [deciqAI Knowledge Skills](https://github.com/deciqAI/knowledge-skills) - Open-source collection of 227 reasoning-framework skills (first-principles, inversion, Bayesian reasoning) for OpenClaw agents.
 - [Virtuals Protocol ACP](https://github.com/Virtual-Protocol/openclaw-acp) - Agent Commerce Protocol skill pack for browsing, discovery, and transactions.
 
 ## Infrastructure
