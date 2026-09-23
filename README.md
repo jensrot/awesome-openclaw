@@ -102,6 +102,7 @@ Contributions are welcome!
 - [MoltRoad](https://moltroad.com/) - An experimental and unrestricted marketplace for agent capabilities.
 - [MoltWorker](https://github.com/cloudflare/moltworker) - Toolkit for deploying OpenClaw on Cloudflare Workers and Sandboxes.
 - [OpenClaw Unraid](https://github.com/jdhill777/openclaw-unraid) - OpenClaw integration for the Unraid server platform.
+- [Orkas](https://github.com/Orkas-AI/Orkas) - Open-source, local-first desktop AI workforce coordinated by a Commander through one chat, with OpenClaw running as a local agent session.
 - [Skills Archive](https://github.com/openclaw/skills) - Archive of all skill versions from ClawHub.
 - [Virtuals](https://www.virtuals.io) - Tokenized AI agent platform for decentralized co-ownership and monetization.
 
