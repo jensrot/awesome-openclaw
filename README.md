@@ -122,6 +122,7 @@ Contributions are welcome!
 - [OpenClaw Discord](https://discord.com/invite/clawd) - The primary hub for developers, troubleshooting, and sharing "vibe-coding" success stories.
 - [OpenClaw GitHub Discussions](https://github.com/openclaw/openclaw/discussions) - The official place for feature requests and technical architectural debates.
 - [OpenClaw Wikipedia](https://en.wikipedia.org/wiki/OpenClaw) - Wikipedia article covering OpenClaw history, features, and controversy.
+- [Shelldex](https://shelldex.com/) - Community directory of OpenClaw alternatives with project profiles, saved GitHub metrics, and side-by-side comparisons.
 
 ## Articles & Tutorials
 
