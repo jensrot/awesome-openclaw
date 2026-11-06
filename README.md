@@ -115,6 +115,7 @@ Contributions are welcome!
 
 ## Security
 
+- [Ironheights](https://www.ironheights.dev) - Open-source static scanner for OpenClaw/ClawHub skills: flags prompt injection, credential reads, remote-exec installs and persistence before install; integrity pinning and quarantine (`npx ironheights`). Early-stage, rule-based.
 - [OpenClaw Security Docs](https://docs.openclaw.ai/security) - Official security guidelines and best practices.
 
 ## Community
